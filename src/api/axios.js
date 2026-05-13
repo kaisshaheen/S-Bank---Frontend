@@ -1,11 +1,11 @@
 import axios from "axios";
 
 const api = axios.create({
-    withCredentials: true,
     baseURL: "https://s-bank-backend-production.up.railway.app",
-})
+    withCredentials: true,
+});
 
-// IMPORTANT: ensure XSRF header is attached
+// 🔥 THIS IS THE MISSING PIECE
 api.interceptors.request.use((config) => {
     const token = document.cookie
         .split("; ")
@@ -19,4 +19,4 @@ api.interceptors.request.use((config) => {
     return config;
 });
 
-export default api
+export default api;
