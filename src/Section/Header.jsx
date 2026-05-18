@@ -32,7 +32,7 @@ const Header = () => {
                 </h1>
 
                 {/* Desktop nav */}
-                {user.email_verified_at ? (
+                {user.verified ? (
                     <div className="hidden sm:flex items-center gap-4">
                         <NotificationBell />
                         <p className="text-white text-sm">{user?.name}</p>
