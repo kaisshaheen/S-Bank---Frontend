@@ -12,7 +12,7 @@ const Header = () => {
     async function handleLogout(e) {
         e.preventDefault()
         try {
-            const res = await api.post('/logout')
+            const res = await api.post('/api/logout')
             if (res.status === 200) {
                 setUser(null)
                 navigate('/')
@@ -32,7 +32,7 @@ const Header = () => {
                 </h1>
 
                 {/* Desktop nav */}
-                {user ? (
+                {user.email_verified_at ? (
                     <div className="hidden sm:flex items-center gap-4">
                         <NotificationBell />
                         <p className="text-white text-sm">{user?.name}</p>

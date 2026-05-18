@@ -28,7 +28,9 @@ const NotificationBell = () => {
             const res = await api.get('/api/notifications')
             setNotifications(res.data.notifications)
             setUnreadCount(res.data.unread_count)
-        } catch {}
+        } catch {
+            //
+        }
     }
 
     const markOne = async (id) => {
