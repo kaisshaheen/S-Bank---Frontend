@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import api from '../../api/axios'
+import AuthProvider from '../../Context/AuthProvider'
+import { useAuth } from '../../Context/useAuth'
 
 const SignUp = () => {
     const [formData, setFormData] = useState({
@@ -11,6 +13,7 @@ const SignUp = () => {
     })
     const [errors,   setErrors]  = useState({})
     const [loading,  setLoading] = useState(false)
+    const {token , setToken} = useAuth()
     const navigate = useNavigate()
 
     const set = (field) => (e) =>
@@ -21,8 +24,9 @@ const SignUp = () => {
         setLoading(true)
         setErrors({})
         try {
-            await api.get('/sanctum/csrf-cookie')
-            await api.post('/register', formData)
+            const res = await api.post('/api/register', formData)
+            localStorage.setItem('token', res.data.token)
+            setToken(res.data.token)
             navigate('/check-email')
         } catch (error) {
             if (error.response?.data?.errors) {

@@ -13,7 +13,6 @@ const ForgetPassword = () => {
         setLoading(true)
         setErrors({})
         try {
-            await api.get('/sanctum/csrf-cookie')
             await api.post('/api/forgot-password', { email })
             navigate('/reset-password-wait')
         } catch (error) {

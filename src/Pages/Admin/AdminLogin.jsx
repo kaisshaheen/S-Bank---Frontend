@@ -12,11 +12,10 @@ const AdminLogin = () => {
         setLoading(true)
         setError('')
         try {
-            // Step 1 — get CSRF cookie first (required for SPA session auth)
-            await api.get('/sanctum/csrf-cookie')
+            
 
             // Step 2 — login
-            const res = await api.post('/login', form)
+            const res = await api.post('/api/login', form)
 
             // Step 3 — make sure it's an admin
             if (res.data.user?.role !== 'admin') {
@@ -24,7 +23,8 @@ const AdminLogin = () => {
                 return
             }
 
-            // Step 4 — store user info and redirect
+            // Step 4 — store admin token
+            localStorage.setItem('token',      res.data.token)
             localStorage.setItem('admin_user', JSON.stringify(res.data.user))
             navigate('/admin')
 

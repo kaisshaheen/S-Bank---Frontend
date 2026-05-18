@@ -4,7 +4,7 @@ import api from '../../api/axios'
 import { useAuth } from '../../Context/useAuth'
 
 const LogIn = () => {
-    const { setUser } = useAuth()
+    const { setUser , setToken } = useAuth()
     const navigate    = useNavigate()
 
     const [formData, setFormData] = useState({ email: '', password: '' })
@@ -19,10 +19,10 @@ const LogIn = () => {
         setLoading(true)
         setErrors({})
         try {
-            await api.get('/sanctum/csrf-cookie')
-            await api.post('/login', formData)
-            const res = await api.get('/api/user')
-            setUser(res.data)
+            const res = await api.post('/api/login', formData)
+            localStorage.setItem('token', res.data.token)
+            setToken(res.data.token)
+            setUser(res.data.user)
             navigate('/home')
         } catch (error) {
             if (error.response?.data?.errors) {

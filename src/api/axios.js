@@ -2,31 +2,31 @@ import axios from "axios";
 
 const api = axios.create({
     baseURL: "https://s-bank-backend-production.up.railway.app",
-    withCredentials: true,
-    withXSRFToken: true,
-
-    xsrfCookieName: "XSRF-TOKEN",
-    xsrfHeaderName: "X-XSRF-TOKEN",
-
     headers: {
-        "X-Requested-With": "XMLHttpRequest",
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-    }
+        'Content-Type': 'application/json',
+        'Accept':        'application/json',
+    },
 });
 
-// 🔥 THIS IS THE MISSING PIECE
-// api.interceptors.request.use((config) => {
-//     const token = document.cookie
-//         .split("; ")
-//         .find(row => row.startsWith("XSRF-TOKEN="))
-//         ?.split("=")[1];
+// Attach token to every request
+api.interceptors.request.use(config => {
+    const token = localStorage.getItem('token')
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+})
+// Auto logout on 401
+api.interceptors.response.use(
+    response => response,
+    error => {
+        if (error.response?.status === 401) {
+            localStorage.removeItem('token')
+            window.location.href = '/login'
+        }
+        return Promise.reject(error)
+    }
+)
 
-//     if (token) {
-//         config.headers["X-XSRF-TOKEN"] = decodeURIComponent(token);
-//     }
-
-//     return config;
-// });
 
 export default api;
