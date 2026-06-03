@@ -14,7 +14,8 @@ export default function AuthProvider({children}) {
 
       try {
         const res = await api.get("/api/user");
-        setUser(res.data);
+        setUser(res.data.user);
+        console.log("User fetched:", res.data.user);
       } catch{
         setUser(null);
       }

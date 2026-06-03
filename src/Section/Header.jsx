@@ -32,10 +32,11 @@ const Header = () => {
                 </h1>
 
                 {/* Desktop nav */}
-                {user.verified ? (
+                {user?.verified ? (
                     <div className="hidden sm:flex items-center gap-4">
                         <NotificationBell />
                         <p className="text-white text-sm">{user?.name}</p>
+                        <Link to='/settings' className="text-white text-sm">Settings</Link>
                         <button onClick={handleLogout}
                             className="text-white text-sm hover:underline cursor-pointer">
                             Logout
@@ -75,6 +76,10 @@ const Header = () => {
                     {user ? (
                         <>
                             <p className="text-white/70 text-sm px-1">{user?.name}</p>
+                            <Link to="/settings" onClick={() => setMenuOpen(false)}
+                                className="block text-white text-sm py-2 px-1 hover:bg-white/10 rounded-lg transition-colors">
+                                    Settings
+                            </Link>
                             <button onClick={handleLogout}
                                 className="block w-full text-left text-white text-sm py-2 px-1 hover:bg-white/10 rounded-lg transition-colors">
                                 Logout

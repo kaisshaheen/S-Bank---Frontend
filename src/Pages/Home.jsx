@@ -54,10 +54,6 @@ const Home = () => {
                                 Create an account
                             </Link>
                         )}
-                        <Link to="/account"
-                            className="w-full sm:w-auto px-8 py-3 rounded-xl border border-[#3931aa] text-[#3931aa] font-semibold text-sm hover:bg-[#3931aa]/5 active:scale-95 transition-all duration-200 text-center">
-                            Go to dashboard
-                        </Link>
                     </div>
                 )}
             </div>

@@ -22,7 +22,7 @@ const LogIn = () => {
             const res = await api.post('/api/login', formData)
             localStorage.setItem('token', res.data.token)
             setToken(res.data.token)
-            setUser(res.data.user)
+            setUser(res.data.user.user)
             navigate('/home')
         } catch (error) {
             if (error.response?.data?.errors) {

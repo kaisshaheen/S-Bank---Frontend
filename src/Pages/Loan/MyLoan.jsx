@@ -21,7 +21,7 @@ const MyLoan = () => {
     const [error,        setError]        = useState('')
     const [success,      setSuccess]      = useState('')
 
-    useEffect(() => { fetchLoan() }, [])
+    useEffect(() => { fetchLoan() }, [installments.status])
 
     const fetchLoan = async () => {
         setLoading(true)
@@ -160,7 +160,7 @@ const MyLoan = () => {
                                 <span className="text-right">
                                     {isNext && (
                                         <button onClick={() => handlePay(inst)}
-                                            disabled={loan.status === 'pending' || paying === inst.id}
+                                            disabled={loan.status === 'pending' || loan.status === 'rejected' || paying === inst.id }
                                             className="text-xs px-3 py-1.5 rounded-lg border border-blue-200 text-blue-700 hover:bg-blue-50 transition-colors disabled:opacity-40">
                                             {paying === inst.id ? '...' : 'Pay now'}
                                         </button>

@@ -1,23 +1,27 @@
 
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import {Account, AccountLogin, AdminAccounts, AdminDashboard, AdminLayout, AdminLoans, AdminLogin, AdminTransactions, AdminUsers, CheckEmail, CreateAccount, Entry, ForgetPassword, History, Home, LoanRequest, Login , MyLoan, ResetPassword, ResetPasswordWaiting, SignUp, Statement, Verify} from "./Pages/Index"
+import {Account, AccountLogin, AdminAccounts, AdminDashboard, AdminLayout, AdminLoans, AdminLogin, AdminTransactions, AdminUsers, CheckEmail, CreateAccount, Entry, ForgetPassword, History, Home, LoanRequest, Login , MyLoan, ResetPassword, ResetPasswordWaiting, Settings, SignUp, Statement, Verify} from "./Pages/Index"
 import './App.css'
 import Layout from './Layout'
 import AdminRoute from './Components/AdminRoute'
+import { useAuth } from './Context/useAuth'
 
 function App() {
+
+  const { user } = useAuth()
 
   return (
     <>
      <BrowserRouter>
       <Layout>
          <Routes>
-            <Route path="/" element={<Entry />} />
+            <Route path="/" element={user? <Home /> : <Entry />} />
             <Route path="/home" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/check-email" element={<CheckEmail />}/>
             <Route path="/verify" element={<Verify />}/>
+            <Route path='/settings' element={<Settings />}/>
 
             <Route path='/forget-password' element = {<ForgetPassword />} />
             <Route path='/reset-password-wait' element = {<ResetPasswordWaiting />} />

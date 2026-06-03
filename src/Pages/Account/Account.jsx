@@ -54,9 +54,9 @@ const Account = () => {
         setSuccess('')
         try {
             const endpoints = {
-                deposit:  '/api/transcation/deposit',
-                withdraw: '/api/transcation/withdraw',
-                transfer: '/api/transcation/transfer',
+                deposit:  '/api/transaction/deposit',
+                withdraw: '/api/transaction/withdraw',
+                transfer: '/api/transaction/transfer',
             }
             const payload = modal === 'transfer'
                 ? { amount: form.amount, to_account: form.to_account }
